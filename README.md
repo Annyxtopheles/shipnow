@@ -4,7 +4,7 @@ Implementation of the ShipNow logistics dashboard from the provided Figma design
 
 ## Live Demo
 
-[ADD YOUR LIVE VERCEL/NETLIFY URL HERE]
+[[ADD YOUR LIVE VERCEL/NETLIFY URL HERE]](https://shipnow-tau.vercel.app/)
 
 ## Tech Stack
 
