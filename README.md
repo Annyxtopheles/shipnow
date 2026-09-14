@@ -44,27 +44,27 @@ Requires Node.js 18 or later.
 | **Login** | ✅ Complete | Split-screen layout, client-side validation (required fields, email format, password length), show/hide password toggle, simulated session on successful submit. |
 | **Dashboard** | ✅ Complete | Application shell (sidebar + footer), metric cards, charts, live tracking panel, alerts panel, recent shipments table, activity timeline. Nav items without a built screen (Analytics, Calendar, Tracking, Fleets, Drivers) route to a placeholder page. |
 | **Shipments — Grid View** | ✅ Complete | Page header, breadcrumb, status tabs, search, filter, and sort controls. Responsive card grid across desktop, tablet, and mobile, each with its own tailored layout (see Assumptions below). |
-| **Shipments — Table View** | ❌ Not attempted | |
-| **Shipments — View Switcher** | ❌ Not attempted | Depends on the Table View existing; not implemented since only the Grid View was built. |
-| **Create New Shipment** | ❌ Not attempted | |
+| **Shipments — Table View** | ✅ Complete | Full tabular presentation with batch selection checkboxes, column sorting, company logos, route arrows, progress bars, status badges, and inspection actions. |
+| **Shipments — View Switcher** | ✅ Complete | Seamless toggle between Grid View and Table View on `/shipments` across mobile, tablet, and desktop viewports, preserving active filters and search. |
+| **Create New Shipment** | ✅ Complete | Accessible modal dialog with field validation, dynamic `#SH` ID assignment, and reactive state updates across the app. |
 | **Invoices & Billing** | ❌ Not attempted | |
 | **Warehouse** | ❌ Not attempted | |
 
 ## Responsiveness
 
 Implemented and manually verified with no horizontal overflow at:
-- **Mobile** (375px and below): sticky top app bar, hamburger drawer, single-column card grid, and a phone-specific compact toolbar (merged search/filter/new-shipment card with tabs) and card header layout that differs intentionally from tablet/desktop to fit the space.
-- **Tablet** (768–1023px): icon-only collapsed sidebar rail, 2-column card grid, and a toolbar where search/filter collapse to icon-only buttons to prevent wrapping/overflow.
-- **Desktop** (1280px+): full expanded sidebar, 4-column card grid, fully labeled toolbar controls.
+- **Mobile** (375px and below): sticky top app bar, hamburger drawer, single-column card grid or horizontal-scrollable data table, and a phone-specific compact toolbar (merged search/filter/view-switcher/new-shipment card with tabs) and card header layout.
+- **Tablet** (768–1023px): icon-only collapsed sidebar rail, 2-column card grid / structured table view, and a toolbar where search/filter collapse to icon-only buttons to prevent wrapping/overflow.
+- **Desktop** (1280px+): full expanded sidebar, 4-column card grid / full table view, fully labeled toolbar controls.
 
 ## Known Issues & Assumptions
 
-- **Only the Grid View of Shipments was built.** The Table View and the required view switcher (toggle between Table/Grid on a single `/shipments` route) were not attempted. This is a known gap against the assignment's "Required" note on the view switcher.
-- **Shipment dataset is limited to the 12 records shown in the Figma reference.** Rather than generating additional filler records to pad out pagination (which the assignment allows but does not require), the dataset was deliberately kept to exactly the 12 real, Figma-seeded shipments. As a result, there is currently only one page of results — the pagination control is present and functional but has nothing further to page through.
-- **Brand logos:** real per-company logo icons exist only for these 12 seeded companies (matching the Figma reference exactly by name): TechGear Inc., StyleHub Co., FreshNest, FitPlus Gear, EcoLights, AutoParts Pro, GreenHaven, ModaWear, SunCore Panels, QuickParts, VitaFresh, StyleDepot. Since the dataset is limited to just these 12 (see above), every shipment card shows its correct logo.
+- **Shipment dataset is seeded with the 12 records shown in the Figma reference**, with reactive state support allowing new shipments created via the "New Shipment" modal to immediately prepend to the dataset and reflect across both Dashboard and Shipments screens.
+- **Brand logos:** real per-company logo icons exist for the 12 seeded companies (matching the Figma reference exactly by name): TechGear Inc., StyleHub Co., FreshNest, FitPlus Gear, EcoLights, AutoParts Pro, GreenHaven, ModaWear, SunCore Panels, QuickParts, VitaFresh, StyleDepot. Newly created custom companies display a styled initials badge.
 - **Status badge colors** (In Transit / Out for Delivery / Delivered / Processing) use a consistent light-tint color system (same opacity tier and font styling across all four), with hue as the only distinguishing factor.
 - Some mock date fields carry inconsistent years between origin and destination (e.g. `2035` vs `2025`) inherited from the original seed data; this is cosmetic sample text only and does not affect sorting logic, which uses an explicit seed-order field rather than parsing these dates.
 
 ## What's Next
 
-If continuing this project, the suggested order per the assignment brief would be: Shipments Table View → View Switcher → Create New Shipment → Invoices & Billing → Warehouse.
+If continuing this project, the suggested next screens per the assignment brief are: Invoices & Billing → Warehouse.
+

@@ -6,6 +6,8 @@ import { RangeDropdown } from '@/components/ui/RangeDropdown';
 import { StatusTabs, type StatusFilter } from '@/components/shipments/StatusTabs';
 import { FilterMenu } from '@/components/shipments/FilterMenu';
 import { ShipmentCard } from '@/components/shipments/ShipmentCard';
+import { ShipmentTableView } from '@/components/shipments/ShipmentTableView';
+import { ViewSwitcher, type ViewMode } from '@/components/shipments/ViewSwitcher';
 import { Pagination } from '@/components/shipments/Pagination';
 import { type ShipmentCategory } from '@/data/shipments';
 import { useShipments } from '@/context/ShipmentContext';
@@ -26,6 +28,7 @@ const PAGE_SIZE_OPTIONS = ['12', '24', '48'];
 
 export function ShipmentsPage() {
   const { shipments, setIsCreateModalOpen, setSelectedShipmentForDetail } = useShipments();
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [status, setStatus] = useState<StatusFilter>('All');
   const [category, setCategory] = useState<(typeof CATEGORY_OPTIONS)[number]>('All Categories');
   const [query, setQuery] = useState('');
@@ -76,16 +79,18 @@ export function ShipmentsPage() {
       mobileTitle="Shipments"
       hideHeaderOnMobile
       headerAction={
-        <Button
-          onClick={() => setIsCreateModalOpen(true)}
-          className="flex items-center gap-1.5 !px-4 !py-2.5 text-sm transition active:scale-95"
-        >
-          <Plus size={16} /> <span className="hidden sm:inline">New Shipment</span>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => setIsCreateModalOpen(true)}
+            className="flex items-center gap-1.5 !px-4 !py-2.5 text-sm transition active:scale-95"
+          >
+            <Plus size={16} /> <span className="hidden sm:inline">New Shipment</span>
+          </Button>
+        </div>
       }
     >
-      {/* Phone-only toolbar: merged search/filter/new-shipment + tabs card */}
-      <div className="rounded-2xl bg-white p-3 sm:hidden">
+      {/* Phone-only toolbar: merged search/filter/view-switcher/new-shipment + tabs card */}
+      <div className="rounded-2xl bg-white p-3 sm:hidden shadow-xs border border-surface-border">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
             <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-500" />
@@ -104,12 +109,14 @@ export function ShipmentsPage() {
             onChange={(v) => resetToFirstPage(setCategory)(v as (typeof CATEGORY_OPTIONS)[number])}
           />
 
+          <ViewSwitcher mode={viewMode} onChange={setViewMode} />
+
           <Button
             onClick={() => setIsCreateModalOpen(true)}
-            className="!flex !h-10 !w-10 shrink-0 !items-center !justify-center !p-0"
+            className="!flex !h-8 !w-8 shrink-0 !items-center !justify-center !p-0"
             aria-label="New Shipment"
           >
-            <Plus size={18} />
+            <Plus size={16} />
           </Button>
         </div>
 
@@ -121,7 +128,7 @@ export function ShipmentsPage() {
       <div className="hidden flex-col gap-4 sm:flex sm:flex-row sm:items-center sm:justify-between md:gap-2 xl:gap-4">
         <StatusTabs value={status} onChange={resetToFirstPage(setStatus)} />
 
-        <div className="flex flex-wrap items-center gap-4 md:gap-1.5 xl:gap-4">
+        <div className="flex flex-wrap items-center gap-3 md:gap-1.5 xl:gap-3">
           <div className="relative">
             <Search size={14} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-500 md:left-2 xl:left-3" />
             <input
@@ -145,6 +152,8 @@ export function ShipmentsPage() {
             value={sort}
             onChange={(v) => setSort(v as (typeof SORT_OPTIONS)[number])}
           />
+
+          <ViewSwitcher mode={viewMode} onChange={setViewMode} />
         </div>
       </div>
 
@@ -152,6 +161,11 @@ export function ShipmentsPage() {
         <div className="mt-6 flex h-48 items-center justify-center rounded-2xl border border-dashed border-surface-border text-sm text-ink-500">
           No shipments match your filters.
         </div>
+      ) : viewMode === 'table' ? (
+        <ShipmentTableView
+          shipments={pageRows}
+          onSelectShipment={setSelectedShipmentForDetail}
+        />
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pageRows.map((shipment) => (
@@ -163,6 +177,7 @@ export function ShipmentsPage() {
           ))}
         </div>
       )}
+
 
       <Pagination
         page={currentPage}
