@@ -9,6 +9,8 @@ import { TrackingPage } from '@/pages/Tracking'
 import { AnalyticsPage } from '@/pages/Analytics'
 import { FleetsPage } from '@/pages/Fleets'
 import { DriversPage } from '@/pages/Drivers'
+import { CalendarPage } from '@/pages/Calendar'
+import { MessagesPage } from '@/pages/Messages'
 import { ShipmentProvider } from '@/context/ShipmentContext'
 
 function LoginRoute() {
@@ -24,14 +26,14 @@ function App() {
           <Route path="/" element={<LoginRoute />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
-          <Route path="/calendar" element={<PlaceholderPage title="Calendar" />} />
+          <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/shipments" element={<ShipmentsPage />} />
           <Route path="/tracking" element={<TrackingPage />} />
           <Route path="/warehouse" element={<WarehousePage />} />
           <Route path="/fleets" element={<FleetsPage />} />
           <Route path="/drivers" element={<DriversPage />} />
           <Route path="/invoices" element={<InvoicesPage />} />
-          <Route path="/messages" element={<PlaceholderPage title="Messages" />} />
+          <Route path="/messages" element={<MessagesPage />} />
           <Route path="/notifications" element={<PlaceholderPage title="Notifications" />} />
           <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
         </Routes>

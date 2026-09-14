@@ -22,7 +22,7 @@ export interface NavItem {
 export const primaryNavItems: NavItem[] = [
   { label: 'Dashboard', path: '/dashboard', icon: navDashboard, implemented: true },
   { label: 'Analytics', path: '/analytics', icon: navAnalytics, implemented: true },
-  { label: 'Calendar', path: '/calendar', icon: navCalendar, implemented: false },
+  { label: 'Calendar', path: '/calendar', icon: navCalendar, implemented: true },
   { label: 'Shipments', path: '/shipments', icon: navShipments, implemented: true },
   { label: 'Tracking', path: '/tracking', icon: navTracking, implemented: true },
   { label: 'Warehouse', path: '/warehouse', icon: navWarehouse, implemented: true },
@@ -32,7 +32,7 @@ export const primaryNavItems: NavItem[] = [
 ];
 
 export const secondaryNavItems: NavItem[] = [
-  { label: 'Message', path: '/messages', icon: navMessage, badge: 19, implemented: false },
+  { label: 'Message', path: '/messages', icon: navMessage, badge: 19, implemented: true },
   { label: 'Notification', path: '/notifications', icon: navNotification, badge: 3, implemented: false },
   { label: 'Settings', path: '/settings', icon: navSettings, implemented: false },
 ];
