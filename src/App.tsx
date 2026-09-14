@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { LoginPage } from '@/pages/Login'
 import { DashboardPage } from '@/pages/Dashboard'
-import { PlaceholderPage } from '@/pages/Placeholder'
 import { ShipmentsPage } from '@/pages/Shipments'
 import { InvoicesPage } from '@/pages/Invoices'
 import { WarehousePage } from '@/pages/Warehouse'
@@ -11,6 +10,8 @@ import { FleetsPage } from '@/pages/Fleets'
 import { DriversPage } from '@/pages/Drivers'
 import { CalendarPage } from '@/pages/Calendar'
 import { MessagesPage } from '@/pages/Messages'
+import { NotificationsPage } from '@/pages/Notifications'
+import { SettingsPage } from '@/pages/Settings'
 import { ShipmentProvider } from '@/context/ShipmentContext'
 
 function LoginRoute() {
@@ -34,8 +35,8 @@ function App() {
           <Route path="/drivers" element={<DriversPage />} />
           <Route path="/invoices" element={<InvoicesPage />} />
           <Route path="/messages" element={<MessagesPage />} />
-          <Route path="/notifications" element={<PlaceholderPage title="Notifications" />} />
-          <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </BrowserRouter>
     </ShipmentProvider>

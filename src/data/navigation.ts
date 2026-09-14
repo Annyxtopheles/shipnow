@@ -33,6 +33,6 @@ export const primaryNavItems: NavItem[] = [
 
 export const secondaryNavItems: NavItem[] = [
   { label: 'Message', path: '/messages', icon: navMessage, badge: 19, implemented: true },
-  { label: 'Notification', path: '/notifications', icon: navNotification, badge: 3, implemented: false },
-  { label: 'Settings', path: '/settings', icon: navSettings, implemented: false },
+  { label: 'Notification', path: '/notifications', icon: navNotification, badge: 3, implemented: true },
+  { label: 'Settings', path: '/settings', icon: navSettings, implemented: true },
 ];

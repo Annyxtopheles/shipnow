@@ -49,6 +49,14 @@ Requires Node.js 18 or later.
 | **Create New Shipment** | ✅ Complete | Accessible modal dialog with field validation, dynamic `#SH` ID assignment, and reactive state updates across the app. |
 | **Invoices & Billing** | ✅ Complete | Financial dashboard with summary metrics (collected revenue, pending, overdue balances), status tabs, search & filter toolbar, itemized invoice breakdown modal with 'Mark as Paid' action, and new invoice generation dialog. |
 | **Warehouse** | ✅ Complete | Regional fulfillment network hub cards with capacity gauges, volumetric utilization metrics, facility inspection modal, interactive inventory register table with sorting/filtering/search/CSV export, and an inbound stock logging dialog. |
+| **Tracking** | ✅ Complete | Dedicated full-screen route intelligence center with interactive nationwide SVG map, live telemetry markers, weather radar layer, waypoints timeline, and driver communications. |
+| **Analytics** | ✅ Complete | Business intelligence dashboard with shipment volume vs. on-time delivery trends, regional distribution shares, and carrier partner quality scorecards. |
+| **Fleets** | ✅ Complete | Commercial transport asset management with vehicle class filters, odometer tracking, fuel telemetry, and vehicle onboarding modal dialog. |
+| **Drivers** | ✅ Complete | Commercial driver directory with CDL license classifications, safety rating scores, FMCSA hours of service (HOS) gauges, and driver onboarding modal. |
+| **Calendar** | ✅ Complete | Monthly logistics dispatch scheduler with event type filtering (Pickup, Delivery, Customs, Maintenance), date selection, and event booking modal. |
+| **Messages** | ✅ Complete | Internal dispatch communicator with multi-party conversations (drivers, hub managers, consignors), quick-response status templates, and real-time message composer. |
+| **Notifications** | ✅ Complete | Operational alert feed with categorized filters (Delays, Customs, Deliveries, System), unread badges, and direct navigation links. |
+| **Settings** | ✅ Complete | Platform configuration with company profile, metric/imperial unit preferences, telemetry webhooks & API keys, notification rules, and team roles. |
 
 ## Responsiveness
 
