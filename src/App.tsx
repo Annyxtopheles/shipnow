@@ -7,6 +7,8 @@ import { InvoicesPage } from '@/pages/Invoices'
 import { WarehousePage } from '@/pages/Warehouse'
 import { TrackingPage } from '@/pages/Tracking'
 import { AnalyticsPage } from '@/pages/Analytics'
+import { FleetsPage } from '@/pages/Fleets'
+import { DriversPage } from '@/pages/Drivers'
 import { ShipmentProvider } from '@/context/ShipmentContext'
 
 function LoginRoute() {
@@ -26,8 +28,8 @@ function App() {
           <Route path="/shipments" element={<ShipmentsPage />} />
           <Route path="/tracking" element={<TrackingPage />} />
           <Route path="/warehouse" element={<WarehousePage />} />
-          <Route path="/fleets" element={<PlaceholderPage title="Fleets" />} />
-          <Route path="/drivers" element={<PlaceholderPage title="Drivers" />} />
+          <Route path="/fleets" element={<FleetsPage />} />
+          <Route path="/drivers" element={<DriversPage />} />
           <Route path="/invoices" element={<InvoicesPage />} />
           <Route path="/messages" element={<PlaceholderPage title="Messages" />} />
           <Route path="/notifications" element={<PlaceholderPage title="Notifications" />} />
