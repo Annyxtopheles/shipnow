@@ -17,8 +17,8 @@ export function AnalyticsPage() {
 
   return (
     <DashboardLayout
-      breadcrumb={['Dashboard', 'Analytics & Reporting']}
-      pageTitle="Logistics Business Intelligence"
+      breadcrumb={['Dashboard', 'Analytics']}
+      pageTitle="Analytics"
       mobileTitle="Analytics"
       headerAction={
         <Button
@@ -29,12 +29,12 @@ export function AnalyticsPage() {
           {downloaded ? (
             <>
               <Check size={14} className="text-emerald-600" />
-              <span className="hidden sm:inline text-emerald-600 font-semibold">Report Generated</span>
+              <span className="text-emerald-600 font-semibold">Exported</span>
             </>
           ) : (
             <>
               <Download size={14} />
-              <span className="hidden sm:inline">Executive PDF Report</span>
+              <span>Export Report</span>
             </>
           )}
         </Button>

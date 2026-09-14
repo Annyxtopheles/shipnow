@@ -20,9 +20,9 @@ export function TrackingPage() {
 
   return (
     <DashboardLayout
-      breadcrumb={['Dashboard', 'Route Intelligence & Live Tracking']}
-      pageTitle="Live Route Intelligence"
-      mobileTitle="Live Tracking"
+      breadcrumb={['Dashboard', 'Tracking']}
+      pageTitle="Tracking"
+      mobileTitle="Tracking"
       headerAction={
         <Button
           variant="secondary"
@@ -30,7 +30,7 @@ export function TrackingPage() {
           className="flex items-center gap-1.5 !px-3.5 !py-2 text-xs transition active:scale-95"
         >
           <RotateCcw size={14} className={refreshing ? 'animate-spin' : ''} />
-          <span className="hidden sm:inline">Refresh Telemetry</span>
+          <span>Refresh</span>
         </Button>
       }
     >

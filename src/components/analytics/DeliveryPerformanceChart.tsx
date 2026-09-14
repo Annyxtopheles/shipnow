@@ -102,7 +102,7 @@ export function DeliveryPerformanceChart() {
               dataKey="totalShipments"
               name="Total Volume"
               stroke="var(--color-brand-500)"
-              strokeWidth={2.5}
+              strokeWidth={2}
               fillOpacity={1}
               fill="url(#brandPurpleGradient)"
             />
@@ -112,9 +112,8 @@ export function DeliveryPerformanceChart() {
               name="On-Time Delivered"
               stroke="var(--color-ink-900)"
               strokeWidth={2}
-              strokeDasharray="4 4"
-              dot={{ r: 3, fill: 'var(--color-ink-900)', stroke: '#ffffff', strokeWidth: 1.5 }}
-              activeDot={{ r: 5, fill: 'var(--color-ink-900)' }}
+              dot={false}
+              activeDot={{ r: 4, fill: 'var(--color-ink-900)', stroke: '#ffffff', strokeWidth: 2 }}
             />
           </AreaChart>
         </ResponsiveContainer>
