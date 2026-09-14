@@ -21,10 +21,10 @@ export interface NavItem {
 
 export const primaryNavItems: NavItem[] = [
   { label: 'Dashboard', path: '/dashboard', icon: navDashboard, implemented: true },
-  { label: 'Analytics', path: '/analytics', icon: navAnalytics, implemented: false },
+  { label: 'Analytics', path: '/analytics', icon: navAnalytics, implemented: true },
   { label: 'Calendar', path: '/calendar', icon: navCalendar, implemented: false },
   { label: 'Shipments', path: '/shipments', icon: navShipments, implemented: true },
-  { label: 'Tracking', path: '/tracking', icon: navTracking, implemented: false },
+  { label: 'Tracking', path: '/tracking', icon: navTracking, implemented: true },
   { label: 'Warehouse', path: '/warehouse', icon: navWarehouse, implemented: true },
   { label: 'Fleets', path: '/fleets', icon: navFleets, implemented: false },
   { label: 'Drivers', path: '/drivers', icon: navDrivers, implemented: false },
