@@ -25,7 +25,7 @@ export const primaryNavItems: NavItem[] = [
   { label: 'Calendar', path: '/calendar', icon: navCalendar, implemented: false },
   { label: 'Shipments', path: '/shipments', icon: navShipments, implemented: true },
   { label: 'Tracking', path: '/tracking', icon: navTracking, implemented: false },
-  { label: 'Warehouse', path: '/warehouse', icon: navWarehouse, implemented: false },
+  { label: 'Warehouse', path: '/warehouse', icon: navWarehouse, implemented: true },
   { label: 'Fleets', path: '/fleets', icon: navFleets, implemented: false },
   { label: 'Drivers', path: '/drivers', icon: navDrivers, implemented: false },
   { label: 'Invoices & Billing', path: '/invoices', icon: navInvoices, implemented: true },

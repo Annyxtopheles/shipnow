@@ -4,6 +4,7 @@ import { DashboardPage } from '@/pages/Dashboard'
 import { PlaceholderPage } from '@/pages/Placeholder'
 import { ShipmentsPage } from '@/pages/Shipments'
 import { InvoicesPage } from '@/pages/Invoices'
+import { WarehousePage } from '@/pages/Warehouse'
 import { ShipmentProvider } from '@/context/ShipmentContext'
 
 function LoginRoute() {
@@ -22,7 +23,7 @@ function App() {
           <Route path="/calendar" element={<PlaceholderPage title="Calendar" />} />
           <Route path="/shipments" element={<ShipmentsPage />} />
           <Route path="/tracking" element={<PlaceholderPage title="Tracking" />} />
-          <Route path="/warehouse" element={<PlaceholderPage title="Warehouse" />} />
+          <Route path="/warehouse" element={<WarehousePage />} />
           <Route path="/fleets" element={<PlaceholderPage title="Fleets" />} />
           <Route path="/drivers" element={<PlaceholderPage title="Drivers" />} />
           <Route path="/invoices" element={<InvoicesPage />} />
