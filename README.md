@@ -47,7 +47,7 @@ Requires Node.js 18 or later.
 | **Shipments — Table View** | ✅ Complete | Full tabular presentation with batch selection checkboxes, column sorting, company logos, route arrows, progress bars, status badges, and inspection actions. |
 | **Shipments — View Switcher** | ✅ Complete | Seamless toggle between Grid View and Table View on `/shipments` across mobile, tablet, and desktop viewports, preserving active filters and search. |
 | **Create New Shipment** | ✅ Complete | Accessible modal dialog with field validation, dynamic `#SH` ID assignment, and reactive state updates across the app. |
-| **Invoices & Billing** | ❌ Not attempted | |
+| **Invoices & Billing** | ✅ Complete | Financial dashboard with summary metrics (collected revenue, pending, overdue balances), status tabs, search & filter toolbar, itemized invoice breakdown modal with 'Mark as Paid' action, and new invoice generation dialog. |
 | **Warehouse** | ❌ Not attempted | |
 
 ## Responsiveness
@@ -66,5 +66,6 @@ Implemented and manually verified with no horizontal overflow at:
 
 ## What's Next
 
-If continuing this project, the suggested next screens per the assignment brief are: Invoices & Billing → Warehouse.
+If continuing this project, the suggested next screen per the assignment brief is: Warehouse.
+
 

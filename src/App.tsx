@@ -3,6 +3,7 @@ import { LoginPage } from '@/pages/Login'
 import { DashboardPage } from '@/pages/Dashboard'
 import { PlaceholderPage } from '@/pages/Placeholder'
 import { ShipmentsPage } from '@/pages/Shipments'
+import { InvoicesPage } from '@/pages/Invoices'
 import { ShipmentProvider } from '@/context/ShipmentContext'
 
 function LoginRoute() {
@@ -24,7 +25,7 @@ function App() {
           <Route path="/warehouse" element={<PlaceholderPage title="Warehouse" />} />
           <Route path="/fleets" element={<PlaceholderPage title="Fleets" />} />
           <Route path="/drivers" element={<PlaceholderPage title="Drivers" />} />
-          <Route path="/invoices" element={<PlaceholderPage title="Invoices & Billing" />} />
+          <Route path="/invoices" element={<InvoicesPage />} />
           <Route path="/messages" element={<PlaceholderPage title="Messages" />} />
           <Route path="/notifications" element={<PlaceholderPage title="Notifications" />} />
           <Route path="/settings" element={<PlaceholderPage title="Settings" />} />

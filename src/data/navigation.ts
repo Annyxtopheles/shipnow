@@ -28,7 +28,7 @@ export const primaryNavItems: NavItem[] = [
   { label: 'Warehouse', path: '/warehouse', icon: navWarehouse, implemented: false },
   { label: 'Fleets', path: '/fleets', icon: navFleets, implemented: false },
   { label: 'Drivers', path: '/drivers', icon: navDrivers, implemented: false },
-  { label: 'Invoices & Billing', path: '/invoices', icon: navInvoices, implemented: false },
+  { label: 'Invoices & Billing', path: '/invoices', icon: navInvoices, implemented: true },
 ];
 
 export const secondaryNavItems: NavItem[] = [
