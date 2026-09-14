@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, Sparkles, CheckCircle2, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { useShipments } from '@/context/ShipmentContext';
 
 interface ProUpgradeModalProps {
   open: boolean;
@@ -8,6 +9,7 @@ interface ProUpgradeModalProps {
 }
 
 export function ProUpgradeModal({ open, onClose }: ProUpgradeModalProps) {
+  const { setIsPro } = useShipments();
   const [subscribed, setSubscribed] = useState(false);
 
   if (!open) return null;
@@ -84,7 +86,10 @@ export function ProUpgradeModal({ open, onClose }: ProUpgradeModalProps) {
                 Cancel
               </button>
               <Button
-                onClick={() => setSubscribed(true)}
+                onClick={() => {
+                  setIsPro(true);
+                  setSubscribed(true);
+                }}
                 className="flex items-center gap-1.5 !px-4 !py-2 text-xs"
               >
                 <Zap size={14} /> Start 14-Day Free Trial

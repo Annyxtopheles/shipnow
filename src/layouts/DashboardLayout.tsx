@@ -90,6 +90,7 @@ function SidebarContent({
   onNavigate?: () => void;
   onOpenPro?: () => void;
 }) {
+  const { isPro, proDismissed, setProDismissed } = useShipments();
   const [profileOpen, setProfileOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -127,8 +128,15 @@ function SidebarContent({
             JD
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-ink-900">John Doe</p>
-            <p className="text-xs text-ink-500">Admin</p>
+            <div className="flex items-center gap-1.5">
+              <p className="text-sm font-semibold text-ink-900 truncate">John Doe</p>
+              {isPro && (
+                <span className="rounded bg-brand-500 px-1.5 py-0.5 text-[9px] font-bold text-white tracking-wider uppercase shadow-2xs">
+                  PRO
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-ink-500">{isPro ? 'Admin · Pro Plan' : 'Admin'}</p>
           </div>
           <span className="shrink-0 p-1">
             <img
@@ -179,32 +187,58 @@ function SidebarContent({
         ))}
       </nav>
 
-      <div className="relative m-3 overflow-hidden rounded-xl bg-ink-900 p-6 text-white">
-        <img
-          src={promoPattern1}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-2 right-5 w-14"
-        />
-        <img
-          src={promoPattern2}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute top-9 -right-1 w-12"
-        />
+      {!proDismissed && (
+        <div className="relative m-3 overflow-hidden rounded-xl bg-ink-900 p-5 text-white">
+          <button
+            type="button"
+            onClick={() => setProDismissed(true)}
+            className="absolute top-2.5 right-2.5 z-10 rounded-lg p-1 text-white/60 hover:text-white hover:bg-white/10 transition"
+            title="Close"
+            aria-label="Close"
+          >
+            <X size={15} />
+          </button>
 
-        <p className="relative max-w-[9ch] text-2xl font-extrabold leading-tight">Loving ShipNow Free?</p>
-        <p className="relative mt-4 text-xs text-white/90">
-          Go Pro to access priority support, real-time tracking, and full analytics.
-        </p>
-        <Button
-          variant="secondary"
-          onClick={onOpenPro}
-          className="relative mt-5 w-full !bg-white !text-ink-900 !py-3 text-sm transition hover:!bg-brand-50"
-        >
-          Go Pro Today
-        </Button>
-      </div>
+          {isPro ? (
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-300">ShipNow Pro Active</span>
+              </div>
+              <p className="mt-1.5 text-xs text-white/80 leading-relaxed">
+                Unlimited telemetry, route intelligence & priority dispatch enabled.
+              </p>
+            </div>
+          ) : (
+            <>
+              <img
+                src={promoPattern1}
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-2 right-5 w-14"
+              />
+              <img
+                src={promoPattern2}
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none absolute top-9 -right-1 w-12"
+              />
+
+              <p className="relative max-w-[9ch] text-2xl font-extrabold leading-tight">Loving ShipNow Free?</p>
+              <p className="relative mt-4 text-xs text-white/90">
+                Go Pro to access priority support, real-time tracking, and full analytics.
+              </p>
+              <Button
+                variant="secondary"
+                onClick={onOpenPro}
+                className="relative mt-5 w-full !bg-white !text-ink-900 !py-3 text-sm transition hover:!bg-brand-50"
+              >
+                Go Pro Today
+              </Button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

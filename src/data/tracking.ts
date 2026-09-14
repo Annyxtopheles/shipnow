@@ -24,6 +24,9 @@ export interface LiveShipmentTelemetry {
   traveledPercent: number;
   currentSpeedMph: number;
   estimatedArrival: string;
+  latLong: string;
+  heading: string;
+  altitude: string;
   temperatureCelsius?: number; // for cold-chain
   fuelLevelPercent: number;
   weatherAlert?: string;
@@ -49,6 +52,9 @@ export const seedLiveTracking: LiveShipmentTelemetry[] = [
     traveledPercent: 68,
     currentSpeedMph: 64,
     estimatedArrival: 'Today at 6:45 PM',
+    latLong: '41.5868° N, 93.6250° W',
+    heading: '078° ENE',
+    altitude: '840 FT MSL',
     fuelLevelPercent: 78,
     weatherAlert: 'Clear driving conditions along I-80 corridor',
     status: 'In Transit',
@@ -109,6 +115,9 @@ export const seedLiveTracking: LiveShipmentTelemetry[] = [
     traveledPercent: 82,
     currentSpeedMph: 58,
     estimatedArrival: 'Today at 8:15 PM',
+    latLong: '33.5186° N, 86.8104° W',
+    heading: '085° E',
+    altitude: '610 FT MSL',
     temperatureCelsius: 3.4,
     fuelLevelPercent: 62,
     weatherAlert: 'Light rain along I-20 East, reduced visibility',
@@ -163,6 +172,9 @@ export const seedLiveTracking: LiveShipmentTelemetry[] = [
     traveledPercent: 92,
     currentSpeedMph: 35,
     estimatedArrival: 'Today in 25 mins',
+    latLong: '42.3601° N, 71.0589° W',
+    heading: '045° NE',
+    altitude: '45 FT MSL',
     fuelLevelPercent: 44,
     status: 'Out for Delivery',
     milestones: [
@@ -214,6 +226,9 @@ export const seedLiveTracking: LiveShipmentTelemetry[] = [
     traveledPercent: 45,
     currentSpeedMph: 61,
     estimatedArrival: 'Tomorrow at 11:00 AM',
+    latLong: '38.6270° N, 90.1994° W',
+    heading: '215° SW',
+    altitude: '465 FT MSL',
     fuelLevelPercent: 89,
     status: 'In Transit',
     milestones: [
@@ -257,6 +272,9 @@ export const seedLiveTracking: LiveShipmentTelemetry[] = [
     traveledPercent: 55,
     currentSpeedMph: 510,
     estimatedArrival: 'Today at 7:30 PM',
+    latLong: '36.1627° N, 86.7816° W',
+    heading: '132° SE',
+    altitude: '34,000 FT MSL',
     fuelLevelPercent: 71,
     status: 'In Transit',
     milestones: [

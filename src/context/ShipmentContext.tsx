@@ -25,6 +25,10 @@ interface ShipmentContextType {
   setSelectedShipmentForDetail: (shipment: Shipment | null) => void;
   isCreateModalOpen: boolean;
   setIsCreateModalOpen: (open: boolean) => void;
+  isPro: boolean;
+  setIsPro: (pro: boolean) => void;
+  proDismissed: boolean;
+  setProDismissed: (dismissed: boolean) => void;
 }
 
 const ShipmentContext = createContext<ShipmentContextType | undefined>(undefined);
@@ -47,6 +51,38 @@ export function ShipmentProvider({ children }: { children: ReactNode }) {
   const [activeTracking, setActiveTracking] = useState<ActiveTrackingData>(defaultActiveTracking);
   const [selectedShipmentForDetail, setSelectedShipmentForDetail] = useState<Shipment | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isPro, setIsProState] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem('shipnow_is_pro') === 'true';
+    } catch {
+      return false;
+    }
+  });
+  const [proDismissed, setProDismissedState] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem('shipnow_pro_dismissed') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const setIsPro = (pro: boolean) => {
+    setIsProState(pro);
+    try {
+      sessionStorage.setItem('shipnow_is_pro', String(pro));
+    } catch {
+      // ignore
+    }
+  };
+
+  const setProDismissed = (dismissed: boolean) => {
+    setProDismissedState(dismissed);
+    try {
+      sessionStorage.setItem('shipnow_pro_dismissed', String(dismissed));
+    } catch {
+      // ignore
+    }
+  };
 
   useEffect(() => {
     try {
@@ -119,6 +155,10 @@ export function ShipmentProvider({ children }: { children: ReactNode }) {
         setSelectedShipmentForDetail,
         isCreateModalOpen,
         setIsCreateModalOpen,
+        isPro,
+        setIsPro,
+        proDismissed,
+        setProDismissed,
       }}
     >
       {children}

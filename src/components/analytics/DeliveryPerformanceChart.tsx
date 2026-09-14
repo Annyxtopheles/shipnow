@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   AreaChart,
   Area,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -30,18 +31,18 @@ export function DeliveryPerformanceChart() {
         <div>
           <h3 className="text-sm font-bold text-ink-900">Shipment Throughput & On-Time Performance</h3>
           <p className="text-xs text-ink-500 mt-0.5">
-            Total volume vs. guaranteed on-time delivered parcels
+            Total volume throughput vs. guaranteed on-time delivered parcels
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 text-xs">
-            <span className="flex items-center gap-1 text-ink-700 font-medium">
-              <span className="h-2.5 w-2.5 rounded-full bg-brand-500"></span>
+          <div className="flex items-center gap-3 text-xs">
+            <span className="flex items-center gap-1.5 text-ink-700 font-medium">
+              <span className="h-2.5 w-2.5 rounded-full bg-brand-500" />
               Total Volume
             </span>
-            <span className="flex items-center gap-1 text-ink-700 font-medium">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-              On-Time
+            <span className="flex items-center gap-1.5 text-ink-700 font-medium">
+              <span className="h-2.5 w-2.5 rounded-full bg-ink-900" />
+              On-Time Delivered
             </span>
           </div>
           <RangeDropdown options={RANGE_OPTIONS} value={range} onChange={setRange} />
@@ -52,13 +53,9 @@ export function DeliveryPerformanceChart() {
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
             <defs>
-              <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-brand-500)" stopOpacity={0.25} />
+              <linearGradient id="brandPurpleGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--color-brand-500)" stopOpacity={0.28} />
                 <stop offset="95%" stopColor="var(--color-brand-500)" stopOpacity={0.0} />
-              </linearGradient>
-              <linearGradient id="colorOnTime" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="var(--color-surface-border)" />
@@ -75,32 +72,49 @@ export function DeliveryPerformanceChart() {
               tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`}
             />
             <Tooltip
-              contentStyle={{
-                backgroundColor: '#ffffff',
-                borderColor: 'var(--color-surface-border)',
-                borderRadius: '12px',
-                fontSize: '12px',
-                boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+              content={({ active, payload, label }) => {
+                if (!active || !payload || !payload.length) return null;
+                const total = payload.find((p) => p.dataKey === 'totalShipments')?.value as number || 0;
+                const onTime = payload.find((p) => p.dataKey === 'onTimeShipments')?.value as number || 0;
+                const rate = total > 0 ? ((onTime / total) * 100).toFixed(1) : '100';
+
+                return (
+                  <div className="rounded-xl border border-surface-border bg-white p-3 shadow-xl text-xs space-y-1.5">
+                    <p className="font-bold text-ink-900">{label} 2026</p>
+                    <div className="flex items-center justify-between gap-4 text-ink-600">
+                      <span className="flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-brand-500" /> Total Volume:
+                      </span>
+                      <span className="font-bold text-ink-900 font-mono">{total.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-4 text-ink-600">
+                      <span className="flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-ink-900" /> On-Time:
+                      </span>
+                      <span className="font-bold text-ink-900 font-mono">{onTime.toLocaleString()} ({rate}%)</span>
+                    </div>
+                  </div>
+                );
               }}
-              formatter={(val: unknown) => [`${Number(val).toLocaleString()} units`]}
             />
             <Area
               type="monotone"
               dataKey="totalShipments"
-              name="Total Shipments"
+              name="Total Volume"
               stroke="var(--color-brand-500)"
               strokeWidth={2.5}
               fillOpacity={1}
-              fill="url(#colorTotal)"
+              fill="url(#brandPurpleGradient)"
             />
-            <Area
+            <Line
               type="monotone"
               dataKey="onTimeShipments"
-              name="On-Time Delivery"
-              stroke="#10b981"
+              name="On-Time Delivered"
+              stroke="var(--color-ink-900)"
               strokeWidth={2}
-              fillOpacity={1}
-              fill="url(#colorOnTime)"
+              strokeDasharray="4 4"
+              dot={{ r: 3, fill: 'var(--color-ink-900)', stroke: '#ffffff', strokeWidth: 1.5 }}
+              activeDot={{ r: 5, fill: 'var(--color-ink-900)' }}
             />
           </AreaChart>
         </ResponsiveContainer>
