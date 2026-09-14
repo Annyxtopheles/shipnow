@@ -12,6 +12,7 @@ import { RecentShipmentsCard } from '@/components/dashboard/RecentShipmentsCard'
 import { RecentActivityCard } from '@/components/dashboard/RecentActivityCard';
 import { metricCards } from '@/data/dashboardStats';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
+import { useShipments } from '@/context/ShipmentContext';
 
 function MobileLayout() {
   // Phone only: dedicated single-column order per the phone Figma frame.
@@ -128,12 +129,16 @@ function DesktopLayout() {
 
 export function DashboardPage() {
   const breakpoint = useBreakpoint();
+  const { setIsCreateModalOpen } = useShipments();
 
   return (
     <DashboardLayout
       mobileTitle="Dashboard"
       headerAction={
-        <Button className="flex items-center gap-1.5 !px-4 !py-2.5 text-sm">
+        <Button
+          onClick={() => setIsCreateModalOpen(true)}
+          className="flex items-center gap-1.5 !px-4 !py-2.5 text-sm"
+        >
           <Plus size={16} /> <span className="hidden sm:inline">Add New Shipping</span>
         </Button>
       }

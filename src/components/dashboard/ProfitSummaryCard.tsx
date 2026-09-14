@@ -90,9 +90,20 @@ function makeCostShape(activeMonth: string, onSelect: (month: string) => void) {
 
 export function ProfitSummaryCard() {
   const [range, setRange] = useState(RANGE_OPTIONS[0]);
-  const defaultActive = profitSummaryData[4].month; // May, matching the design's highlighted month
+
+  const chartData =
+    range === 'Last 3 Months'
+      ? profitSummaryData.slice(-3)
+      : profitSummaryData;
+
+  const defaultActive = profitSummaryData[4].month;
   const [activeMonth, setActiveMonth] = useState(defaultActive);
-  const total = profitSummaryData.reduce((sum, d) => sum + d.revenue, 0);
+
+  const effectiveActiveMonth = chartData.some((d) => d.month === activeMonth)
+    ? activeMonth
+    : chartData[chartData.length - 1].month;
+
+  const total = chartData.reduce((sum, d) => sum + d.revenue, 0);
 
   return (
     <Card className="flex h-full flex-col gap-4 !rounded-xl !p-4 !pb-3">
@@ -118,15 +129,15 @@ export function ProfitSummaryCard() {
 
       <div className="min-h-[260px] flex-1">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={profitSummaryData} barCategoryGap="15%" barGap={3} margin={{ top: 84, right: 4, left: 0, bottom: 0 }}>
+          <BarChart data={chartData} barCategoryGap="15%" barGap={3} margin={{ top: 84, right: 4, left: 0, bottom: 0 }}>
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 11, fill: 'var(--color-ink-500)' }}
             />
-            <Bar dataKey="revenue" shape={makeRevenueShape(activeMonth, setActiveMonth)} />
-            <Bar dataKey="cost" shape={makeCostShape(activeMonth, setActiveMonth)} />
+            <Bar dataKey="revenue" shape={makeRevenueShape(effectiveActiveMonth, setActiveMonth)} />
+            <Bar dataKey="cost" shape={makeCostShape(effectiveActiveMonth, setActiveMonth)} />
           </BarChart>
         </ResponsiveContainer>
       </div>

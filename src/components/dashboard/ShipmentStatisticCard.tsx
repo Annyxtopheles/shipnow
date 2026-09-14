@@ -55,9 +55,26 @@ function makeBarShape(activeMonth: string, onSelect: (month: string) => void) {
 
 export function ShipmentStatisticCard() {
   const [range, setRange] = useState(RANGE_OPTIONS[0]);
-  const defaultActive = shipmentStatisticData[4].month; // May, pre-selected per the design
+
+  const chartData =
+    range === 'Last 3 Months'
+      ? shipmentStatisticData.slice(-3)
+      : range === 'Last 6 Months'
+      ? shipmentStatisticData.slice(-6)
+      : shipmentStatisticData;
+
+  const defaultActive = shipmentStatisticData[4].month;
   const [activeMonth, setActiveMonth] = useState(defaultActive);
-  const latest = shipmentStatisticData[shipmentStatisticData.length - 1].value;
+
+  // Keep activeMonth valid within current slice
+  const effectiveActiveMonth = chartData.some((d) => d.month === activeMonth)
+    ? activeMonth
+    : chartData[chartData.length - 1].month;
+
+  const latest = chartData[chartData.length - 1].value;
+  const prev = chartData.length > 1 ? chartData[chartData.length - 2].value : latest;
+  const diffPercent = (((latest - prev) / prev) * 100).toFixed(1);
+  const isUp = latest >= prev;
 
   return (
     <Card className="flex h-full flex-col gap-4 !rounded-xl !p-4 !pb-3">
@@ -68,12 +85,12 @@ export function ShipmentStatisticCard() {
 
       <div className="flex items-center gap-2">
         <p className="text-2xl font-extrabold text-ink-900">{latest.toLocaleString()}</p>
-        <TrendBadge value="+4.7%" direction="up" />
+        <TrendBadge value={`${isUp ? '+' : ''}${diffPercent}%`} direction={isUp ? 'up' : 'down'} />
       </div>
 
       <div className="min-h-[260px] flex-1">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={shipmentStatisticData} barCategoryGap="1%" margin={{ top: 70, right: 4, left: 0, bottom: 0 }}>
+          <BarChart data={chartData} barCategoryGap="1%" margin={{ top: 70, right: 4, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="barInactiveGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#D9D9D9" />
@@ -98,7 +115,7 @@ export function ShipmentStatisticCard() {
               tickLine={false}
               tick={{ fontSize: 11, fill: 'var(--color-ink-500)' }}
             />
-            <Bar dataKey="value" shape={makeBarShape(activeMonth, setActiveMonth)} />
+            <Bar dataKey="value" shape={makeBarShape(effectiveActiveMonth, setActiveMonth)} />
           </BarChart>
         </ResponsiveContainer>
       </div>

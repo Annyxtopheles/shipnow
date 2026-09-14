@@ -7,7 +7,8 @@ import { StatusTabs, type StatusFilter } from '@/components/shipments/StatusTabs
 import { FilterMenu } from '@/components/shipments/FilterMenu';
 import { ShipmentCard } from '@/components/shipments/ShipmentCard';
 import { Pagination } from '@/components/shipments/Pagination';
-import { allShipments, type ShipmentCategory } from '@/data/shipments';
+import { type ShipmentCategory } from '@/data/shipments';
+import { useShipments } from '@/context/ShipmentContext';
 
 const CATEGORY_OPTIONS: ('All Categories' | ShipmentCategory)[] = [
   'All Categories',
@@ -24,6 +25,7 @@ const SORT_OPTIONS = ['Newest', 'Oldest'] as const;
 const PAGE_SIZE_OPTIONS = ['12', '24', '48'];
 
 export function ShipmentsPage() {
+  const { shipments, setIsCreateModalOpen, setSelectedShipmentForDetail } = useShipments();
   const [status, setStatus] = useState<StatusFilter>('All');
   const [category, setCategory] = useState<(typeof CATEGORY_OPTIONS)[number]>('All Categories');
   const [query, setQuery] = useState('');
@@ -34,12 +36,17 @@ export function ShipmentsPage() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
 
-    let rows = allShipments;
+    let rows = shipments;
     if (status !== 'All') rows = rows.filter((s) => s.status === status);
     if (category !== 'All Categories') rows = rows.filter((s) => s.category === category);
     if (q) {
       rows = rows.filter(
-        (s) => s.id.toLowerCase().includes(q) || s.company.toLowerCase().includes(q),
+        (s) =>
+          s.id.toLowerCase().includes(q) ||
+          s.company.toLowerCase().includes(q) ||
+          s.carrier.toLowerCase().includes(q) ||
+          s.originCity.toLowerCase().includes(q) ||
+          s.destinationCity.toLowerCase().includes(q),
       );
     }
 
@@ -49,7 +56,7 @@ export function ShipmentsPage() {
     });
 
     return sorted;
-  }, [status, category, query, sort]);
+  }, [shipments, status, category, query, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const currentPage = Math.min(page, totalPages);
@@ -69,7 +76,10 @@ export function ShipmentsPage() {
       mobileTitle="Shipments"
       hideHeaderOnMobile
       headerAction={
-        <Button className="flex items-center gap-1.5 !px-4 !py-2.5 text-sm">
+        <Button
+          onClick={() => setIsCreateModalOpen(true)}
+          className="flex items-center gap-1.5 !px-4 !py-2.5 text-sm transition active:scale-95"
+        >
           <Plus size={16} /> <span className="hidden sm:inline">New Shipment</span>
         </Button>
       }
@@ -94,7 +104,11 @@ export function ShipmentsPage() {
             onChange={(v) => resetToFirstPage(setCategory)(v as (typeof CATEGORY_OPTIONS)[number])}
           />
 
-          <Button className="!flex !h-10 !w-10 shrink-0 !items-center !justify-center !p-0" aria-label="New Shipment">
+          <Button
+            onClick={() => setIsCreateModalOpen(true)}
+            className="!flex !h-10 !w-10 shrink-0 !items-center !justify-center !p-0"
+            aria-label="New Shipment"
+          >
             <Plus size={18} />
           </Button>
         </div>
@@ -141,7 +155,11 @@ export function ShipmentsPage() {
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pageRows.map((shipment) => (
-            <ShipmentCard key={shipment.id} shipment={shipment} />
+            <ShipmentCard
+              key={shipment.id}
+              shipment={shipment}
+              onClick={() => setSelectedShipmentForDetail(shipment)}
+            />
           ))}
         </div>
       )}
@@ -160,4 +178,4 @@ export function ShipmentsPage() {
       />
     </DashboardLayout>
   );
-}
+}

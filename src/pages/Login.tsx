@@ -48,6 +48,17 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
     onLoginSuccess?.()
   }
 
+  function handleDemoFill(e?: React.MouseEvent) {
+    if (e) e.preventDefault()
+    setForm({
+      email: 'admin@shipnow.com',
+      password: 'password123',
+      rememberMe: true,
+    })
+    setErrors({})
+  }
+
+
   return (
     <div className="min-h-screen w-full lg:grid lg:grid-cols-2">
       {/* Brand panel - hidden below lg, this is a login-specific promo panel */}
@@ -137,7 +148,12 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   checked={form.rememberMe}
                   onChange={(e) => setForm((f) => ({ ...f, rememberMe: e.target.checked }))}
                 />
-                <a href="#" className="text-sm font-medium text-brand-500 hover:underline">
+                <a
+                  href="#demo"
+                  onClick={handleDemoFill}
+                  title="Click to auto-fill demo credentials"
+                  className="text-sm font-medium text-brand-500 hover:underline"
+                >
                   Forgot Password?
                 </a>
               </div>
@@ -148,7 +164,12 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
               <p className="text-center text-sm text-ink-500">
                 Don&apos;t have an account?{' '}
-                <a href="#" className="font-semibold text-brand-500 hover:underline">
+                <a
+                  href="#demo"
+                  onClick={handleDemoFill}
+                  title="Click to auto-fill demo credentials"
+                  className="font-semibold text-brand-500 hover:underline"
+                >
                   Register
                 </a>
               </p>
@@ -194,7 +215,12 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 checked={form.rememberMe}
                 onChange={(e) => setForm((f) => ({ ...f, rememberMe: e.target.checked }))}
               />
-              <a href="#" className="text-sm font-medium text-brand-500 hover:underline">
+              <a
+                href="#demo"
+                onClick={handleDemoFill}
+                title="Click to auto-fill demo credentials"
+                className="text-sm font-medium text-brand-500 hover:underline"
+              >
                 Forgot Password?
               </a>
             </div>
@@ -205,7 +231,12 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
             <p className="text-center text-sm text-ink-500">
               Don&apos;t have an account?{' '}
-              <a href="#" className="font-semibold text-brand-500 hover:underline">
+              <a
+                href="#demo"
+                onClick={handleDemoFill}
+                title="Click to auto-fill demo credentials"
+                className="font-semibold text-brand-500 hover:underline"
+              >
                 Register
               </a>
             </p>

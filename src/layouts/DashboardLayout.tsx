@@ -1,6 +1,6 @@
-import { useState, type ReactNode } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { useState, useRef, useEffect, type ReactNode } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Search, Menu, X, LogOut, Settings as SettingsIcon } from 'lucide-react';
 import logoFull from '@/assets/images/logo-full-purple.png';
 import logoIcon from '@/assets/images/logo-icon.png';
 import chevronDown from '@/assets/icons/chevron-down.png';
@@ -13,6 +13,10 @@ import promoPattern1 from '@/assets/icons/promo-pattern-1.png';
 import promoPattern2 from '@/assets/icons/promo-pattern-2.png';
 import { primaryNavItems, secondaryNavItems, type NavItem } from '@/data/navigation';
 import { Button } from '@/components/ui/Button';
+import { useShipments } from '@/context/ShipmentContext';
+import { ProUpgradeModal } from '@/components/dashboard/ProUpgradeModal';
+import { ShipmentDetailModal } from '@/components/shipments/ShipmentDetailModal';
+import { CreateShipmentModal } from '@/components/shipments/CreateShipmentModal';
 
 const socialLinks = [
   { icon: socialFacebook, label: 'Facebook' },
@@ -79,24 +83,90 @@ function NavRow({ item, onNavigate }: { item: NavItem; onNavigate?: () => void }
   );
 }
 
-function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+function SidebarContent({
+  onNavigate,
+  onOpenPro,
+}: {
+  onNavigate?: () => void;
+  onOpenPro?: () => void;
+}) {
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target as Node)) {
+        setProfileOpen(false);
+      }
+    }
+    if (profileOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [profileOpen]);
+
+  function handleLogout() {
+    setProfileOpen(false);
+    navigate('/');
+  }
+
   return (
     <div className="flex h-full flex-col">
       <div className="px-5 pb-4 pt-6">
         <img src={logoFull} alt="ShipNow" className="h-10" />
       </div>
 
-      <div className="mx-5 mb-4 flex items-center gap-3 rounded-xl bg-surface-muted p-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white">
-          JD
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-ink-900">John Doe</p>
-          <p className="text-xs text-ink-500">Admin</p>
-        </div>
-        <button type="button" aria-label="Account options" className="shrink-0 p-1">
-          <img src={chevronDown} alt="" aria-hidden="true" className="h-4 w-4 object-contain" />
+      <div ref={profileMenuRef} className="relative mx-5 mb-4">
+        <button
+          type="button"
+          onClick={() => setProfileOpen((o) => !o)}
+          className="flex w-full items-center gap-3 rounded-xl bg-surface-muted p-3 text-left transition hover:bg-surface-border/50"
+        >
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white shadow-xs">
+            JD
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-ink-900">John Doe</p>
+            <p className="text-xs text-ink-500">Admin</p>
+          </div>
+          <span className="shrink-0 p-1">
+            <img
+              src={chevronDown}
+              alt=""
+              aria-hidden="true"
+              className={`h-4 w-4 object-contain transition-transform duration-150 ${profileOpen ? 'rotate-180' : ''}`}
+            />
+          </span>
         </button>
+
+        {profileOpen && (
+          <div className="absolute left-0 right-0 top-full z-40 mt-1.5 rounded-xl border border-surface-border bg-white p-2 shadow-xl">
+            <div className="border-b border-surface-border px-3 py-2 text-xs">
+              <p className="font-bold text-ink-900">John Doe</p>
+              <p className="text-ink-500">admin@shipnow.com</p>
+            </div>
+            <div className="pt-1 text-xs">
+              <NavLink
+                to="/settings"
+                onClick={() => {
+                  setProfileOpen(false);
+                  onNavigate?.();
+                }}
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-ink-700 hover:bg-surface-muted"
+              >
+                <SettingsIcon size={14} /> Settings
+              </NavLink>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-red-600 hover:bg-red-50"
+              >
+                <LogOut size={14} /> Log Out
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3">
@@ -127,13 +197,18 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <p className="relative mt-4 text-xs text-white/90">
           Go Pro to access priority support, real-time tracking, and full analytics.
         </p>
-        <Button variant="secondary" className="relative mt-5 w-full !bg-white !text-ink-900 !py-3 text-sm">
+        <Button
+          variant="secondary"
+          onClick={onOpenPro}
+          className="relative mt-5 w-full !bg-white !text-ink-900 !py-3 text-sm transition hover:!bg-brand-50"
+        >
           Go Pro Today
         </Button>
       </div>
     </div>
   );
 }
+
 
 export function DashboardLayout({
   children,
@@ -145,18 +220,44 @@ export function DashboardLayout({
   hideHeaderOnMobile = false,
 }: DashboardLayoutProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [proModalOpen, setProModalOpen] = useState(false);
+  const [globalSearch, setGlobalSearch] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const { shipments, setSelectedShipmentForDetail } = useShipments();
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setSearchFocused(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const searchResults = globalSearch.trim()
+    ? shipments.filter(
+        (s) =>
+          s.id.toLowerCase().includes(globalSearch.trim().toLowerCase()) ||
+          s.company.toLowerCase().includes(globalSearch.trim().toLowerCase()) ||
+          s.category.toLowerCase().includes(globalSearch.trim().toLowerCase()) ||
+          s.originCity.toLowerCase().includes(globalSearch.trim().toLowerCase()) ||
+          s.destinationCity.toLowerCase().includes(globalSearch.trim().toLowerCase()),
+      )
+    : [];
 
   return (
     <div className="min-h-screen bg-page-bg md:flex">
       {/* Desktop / tablet sidebar rail */}
       <aside className="sticky top-0 hidden h-screen shrink-0 border-r border-surface-border bg-white md:block md:w-20 lg:w-64">
         <div className="hidden lg:block h-full">
-          <SidebarContent />
+          <SidebarContent onOpenPro={() => setProModalOpen(true)} />
         </div>
         {/* Tablet: icon-only rail */}
         <div className="lg:hidden flex h-full flex-col items-center py-6">
           <img src={logoIcon} alt="ShipNow" className="mb-4 h-8 w-8 object-contain" />
-          <div className="mb-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white">
+          <div className="mb-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white shadow-xs">
             JD
           </div>
           <nav className="flex flex-1 flex-col items-center gap-2">
@@ -197,16 +298,22 @@ export function DashboardLayout({
       {/* Mobile drawer */}
       {drawerOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setDrawerOpen(false)} />
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-xs" onClick={() => setDrawerOpen(false)} />
           <div className="absolute left-0 top-0 h-full w-72 bg-white shadow-xl">
             <button
               onClick={() => setDrawerOpen(false)}
-              className="absolute right-4 top-4 text-ink-500"
+              className="absolute right-4 top-4 text-ink-500 hover:text-ink-900"
               aria-label="Close menu"
             >
               <X size={20} />
             </button>
-            <SidebarContent onNavigate={() => setDrawerOpen(false)} />
+            <SidebarContent
+              onNavigate={() => setDrawerOpen(false)}
+              onOpenPro={() => {
+                setDrawerOpen(false);
+                setProModalOpen(true);
+              }}
+            />
           </div>
         </div>
       )}
@@ -247,7 +354,7 @@ export function DashboardLayout({
             )}
             <div className="flex items-center gap-3">
               {!breadcrumb && (
-                <div className="relative flex-1 sm:flex-none">
+                <div ref={searchContainerRef} className="relative flex-1 sm:flex-none">
                   <Search
                     size={16}
                     className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-500"
@@ -255,8 +362,44 @@ export function DashboardLayout({
                   <input
                     type="search"
                     placeholder="Search anything"
-                    className="w-full rounded-lg bg-[#FEFEFE] py-2 pl-9 pr-3 text-sm outline-none ring-1 ring-transparent placeholder:text-ink-500 focus:bg-white focus:ring-brand-500 sm:w-56 lg:w-72"
+                    value={globalSearch}
+                    onChange={(e) => setGlobalSearch(e.target.value)}
+                    onFocus={() => setSearchFocused(true)}
+                    className="w-full rounded-lg bg-[#FEFEFE] py-2 pl-9 pr-3 text-sm outline-none ring-1 ring-surface-border/60 placeholder:text-ink-500 focus:bg-white focus:ring-2 focus:ring-brand-500 sm:w-56 lg:w-72"
                   />
+                  {searchFocused && globalSearch.trim() && (
+                    <div className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-xl border border-surface-border bg-white p-2 shadow-xl">
+                      {searchResults.length === 0 ? (
+                        <p className="px-3 py-2 text-xs text-ink-500">No matching records found.</p>
+                      ) : (
+                        <div className="space-y-1">
+                          <p className="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink-400">
+                            Shipments ({searchResults.length})
+                          </p>
+                          {searchResults.map((s) => (
+                            <button
+                              key={s.id}
+                              type="button"
+                              onClick={() => {
+                                setSelectedShipmentForDetail(s);
+                                setSearchFocused(false);
+                                setGlobalSearch('');
+                              }}
+                              className="flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-left text-xs transition hover:bg-surface-muted"
+                            >
+                              <div>
+                                <p className="font-semibold text-ink-900">{s.id}</p>
+                                <p className="text-ink-500">{s.company}</p>
+                              </div>
+                              <span className="rounded-md bg-brand-50 px-2 py-0.5 text-[11px] font-medium text-brand-700">
+                                {s.status}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
               {headerAction}
@@ -282,6 +425,11 @@ export function DashboardLayout({
           </footer>
         </div>
       </div>
+
+      {/* Global Modals */}
+      <ProUpgradeModal open={proModalOpen} onClose={() => setProModalOpen(false)} />
+      <ShipmentDetailModal />
+      <CreateShipmentModal />
     </div>
   );
-}
+}

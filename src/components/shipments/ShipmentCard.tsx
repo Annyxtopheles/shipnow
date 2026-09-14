@@ -54,11 +54,16 @@ const companyLogos: Record<string, string> = {
   StyleDepot: logoStyledepot,
 };
 
-export function ShipmentCard({ shipment }: { shipment: Shipment }) {
+export function ShipmentCard({ shipment, onClick }: { shipment: Shipment; onClick?: () => void }) {
   const companyLogo = companyLogos[shipment.company];
 
   return (
-    <div className="rounded-2xl border border-surface-border bg-white p-4">
+    <div
+      onClick={onClick}
+      className={`rounded-2xl border border-surface-border bg-white p-4 transition duration-150 ${
+        onClick ? 'cursor-pointer hover:border-brand-500/40 hover:shadow-md active:scale-[0.99]' : ''
+      }`}
+    >
       {/* Phone-only compact header: status icon on the left beside ID/status, company info on the right, with a divider below */}
       <div className="mb-3 flex items-center justify-between gap-2 sm:hidden">
         <div className="flex items-center gap-3">
