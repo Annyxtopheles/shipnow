@@ -162,7 +162,7 @@ export function NotificationList({
                       </button>
                     )}
                     {n.relatedId && (
-                      <span className="font-mono text-[11px] text-ink-400">
+                      <span className="text-[11px] text-ink-400 font-medium">
                         Ref: {n.relatedId}
                       </span>
                     )}

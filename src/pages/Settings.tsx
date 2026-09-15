@@ -277,7 +277,7 @@ export function SettingsPage() {
                     type="password"
                     readOnly
                     value={apiKey}
-                    className="flex-1 px-3 py-2 rounded-xl font-mono bg-surface-muted border border-surface-border text-ink-700 select-all"
+                    className="flex-1 px-3 py-2 rounded-xl bg-surface-muted border border-surface-border text-ink-700 select-all"
                   />
                   <Button
                     variant="secondary"
@@ -305,7 +305,7 @@ export function SettingsPage() {
                   type="url"
                   value={webhookUrl}
                   onChange={(e) => setWebhookUrl(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl font-mono bg-surface-muted border border-surface-border text-ink-900 outline-none focus:border-brand-500 focus:bg-white"
+                  className="w-full px-3 py-2 rounded-xl bg-surface-muted border border-surface-border text-ink-900 outline-none focus:border-brand-500 focus:bg-white"
                 />
               </div>
 

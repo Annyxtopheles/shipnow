@@ -47,7 +47,7 @@ export function WarehouseHubCards({
             <div className="flex items-start justify-between gap-2">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-surface-muted text-ink-900 border border-surface-border">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded bg-surface-muted text-ink-900 border border-surface-border">
                     {fac.code}
                   </span>
                   <Badge tone={badgeTone}>

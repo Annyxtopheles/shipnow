@@ -85,13 +85,13 @@ export function DeliveryPerformanceChart() {
                       <span className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-brand-500" /> Total Volume:
                       </span>
-                      <span className="font-bold text-ink-900 font-mono">{total.toLocaleString()}</span>
+                      <span className="font-bold text-ink-900">{total.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center justify-between gap-4 text-ink-600">
                       <span className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-ink-900" /> On-Time:
                       </span>
-                      <span className="font-bold text-ink-900 font-mono">{onTime.toLocaleString()} ({rate}%)</span>
+                      <span className="font-bold text-ink-900">{onTime.toLocaleString()} ({rate}%)</span>
                     </div>
                   </div>
                 );

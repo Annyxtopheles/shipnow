@@ -21,7 +21,7 @@ export function RegionalVolumeChart() {
                 <span className="font-semibold text-ink-900">{item.region}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-ink-600">{item.volume.toLocaleString()} units</span>
+                <span className="text-ink-600">{item.volume.toLocaleString()} units</span>
                 <span className="font-bold text-ink-900">{item.percentage}%</span>
                 <span className="text-[11px] font-medium text-emerald-600 flex items-center gap-0.5">
                   <TrendingUp size={11} />

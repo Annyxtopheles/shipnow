@@ -87,7 +87,7 @@ export function TrackingSidebarList({
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-xs text-ink-900">{s.shipmentId}</span>
+                    <span className="font-bold text-xs text-ink-900">{s.shipmentId}</span>
                     <Badge tone={tone}>{s.status}</Badge>
                   </div>
                   <p className="text-xs font-semibold text-ink-700 mt-0.5">{s.company}</p>

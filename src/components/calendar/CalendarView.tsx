@@ -179,7 +179,7 @@ export function CalendarView({ events, onSelectEvent }: CalendarViewProps) {
                     {dayNum}
                   </span>
                   {dayEvents.length > 0 && (
-                    <span className="text-[10px] font-bold text-ink-400 font-mono">
+                    <span className="text-[10px] font-bold text-ink-400">
                       {dayEvents.length}
                     </span>
                   )}
@@ -259,7 +259,7 @@ export function CalendarView({ events, onSelectEvent }: CalendarViewProps) {
                 </div>
 
                 <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between text-[11px]">
-                  <span className="font-mono text-ink-600 flex items-center gap-1">
+                  <span className="text-ink-600 flex items-center gap-1 font-medium">
                     <Tag size={11} />
                     {ev.relatedId}
                   </span>

@@ -144,7 +144,7 @@ export function CarrierScorecardTable() {
               <tr key={c.carrierId} className="hover:bg-surface-muted/50 transition-colors">
                 <td className="py-3 px-4 font-semibold text-ink-900">{c.name}</td>
                 <td className="py-3 px-4 text-ink-600 font-medium">{c.mode}</td>
-                <td className="py-3 px-4 text-right font-mono font-medium text-ink-900">
+                <td className="py-3 px-4 text-right font-medium text-ink-900">
                   {c.completedShipments.toLocaleString()}
                 </td>
                 <td className="py-3 px-4 text-right">
@@ -161,7 +161,7 @@ export function CarrierScorecardTable() {
                   </span>
                 </td>
                 <td className="py-3 px-4 text-right text-ink-600">{c.avgDwellMinutes} min</td>
-                <td className="py-3 px-4 text-right text-ink-600 font-mono">{c.damageRatePercent}%</td>
+                <td className="py-3 px-4 text-right text-ink-600">{c.damageRatePercent}%</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-1 text-amber-500 font-semibold">
                     <Star size={13} fill="currentColor" />

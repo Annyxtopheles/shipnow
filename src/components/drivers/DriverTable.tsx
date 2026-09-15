@@ -199,7 +199,7 @@ export function DriverTable({ drivers, onOpenAddModal }: DriverTableProps) {
               <tr key={d.id} className="hover:bg-surface-muted/50 transition-colors">
                 <td className="py-3 px-4">
                   <div className="font-semibold text-ink-900">{d.name}</div>
-                  <div className="font-mono text-[10px] text-ink-400">{d.id} · {d.experienceYears}y exp</div>
+                  <div className="text-[10px] text-ink-400">{d.id} · {d.experienceYears}y exp</div>
                 </td>
                 <td className="py-3 px-4">
                   <span className="font-medium text-ink-700 bg-surface-muted px-2 py-0.5 rounded border border-surface-border">
@@ -208,7 +208,7 @@ export function DriverTable({ drivers, onOpenAddModal }: DriverTableProps) {
                 </td>
                 <td className="py-3 px-4">
                   {d.assignedVehicleId ? (
-                    <div className="flex items-center gap-1.5 font-mono text-ink-900 font-medium">
+                    <div className="flex items-center gap-1.5 text-ink-900 font-medium">
                       <Truck size={13} className="text-brand-600" />
                       <span>{d.assignedVehicleId}</span>
                     </div>
@@ -216,8 +216,8 @@ export function DriverTable({ drivers, onOpenAddModal }: DriverTableProps) {
                     <span className="text-ink-400 italic">Unassigned</span>
                   )}
                 </td>
-                <td className="py-3 px-4 font-mono font-medium text-ink-700">{d.assignedHub}</td>
-                <td className="py-3 px-4 text-right font-mono font-medium text-ink-900">
+                <td className="py-3 px-4 font-medium text-ink-700">{d.assignedHub}</td>
+                <td className="py-3 px-4 text-right font-medium text-ink-900">
                   {d.accidentFreeMiles.toLocaleString()} mi
                 </td>
                 <td className="py-3 px-4">
@@ -228,7 +228,7 @@ export function DriverTable({ drivers, onOpenAddModal }: DriverTableProps) {
                 </td>
                 <td className="py-3 px-4">
                   <div className="space-y-1">
-                    <span className="font-mono font-semibold text-ink-900">{d.hosRemainingHours}h / 11h</span>
+                    <span className="font-semibold text-ink-900">{d.hosRemainingHours}h / 11h</span>
                     <div className="h-1.5 w-16 overflow-hidden rounded-full bg-surface-muted">
                       <div
                         className={`h-full rounded-full ${

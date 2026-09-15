@@ -14,7 +14,7 @@ export function TrackingMilestoneTimeline({ shipment }: TrackingMilestoneTimelin
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-base font-bold text-ink-900">Route Waypoint Manifest</h3>
-            <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-surface-muted text-ink-700 border border-surface-border">
+            <span className="text-xs font-semibold px-2 py-0.5 rounded bg-surface-muted text-ink-700 border border-surface-border">
               {shipment.trackingNumber}
             </span>
           </div>
@@ -30,7 +30,7 @@ export function TrackingMilestoneTimeline({ shipment }: TrackingMilestoneTimelin
           </div>
           <div className="text-xs">
             <p className="font-semibold text-ink-900">{shipment.driverName}</p>
-            <p className="text-[11px] text-ink-500 font-mono">{shipment.driverPhone}</p>
+            <p className="text-[11px] text-ink-500">{shipment.driverPhone}</p>
           </div>
         </div>
       </div>

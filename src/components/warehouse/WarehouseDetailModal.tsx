@@ -39,7 +39,7 @@ export function WarehouseDetailModal({
       <div className="relative z-10 w-full max-w-2xl rounded-2xl bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between border-b border-surface-border pb-4">
           <div className="flex items-center gap-2.5">
-            <span className="font-mono text-sm font-bold px-2 py-0.5 rounded bg-surface-muted text-ink-900 border border-surface-border">
+            <span className="text-sm font-bold px-2 py-0.5 rounded bg-surface-muted text-ink-900 border border-surface-border">
               {facility.code}
             </span>
             <Badge tone={badgeTone}>
@@ -154,7 +154,7 @@ export function WarehouseDetailModal({
                 <div key={item.sku} className="p-3 flex items-center justify-between hover:bg-surface-muted/50">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-semibold text-ink-900">{item.sku}</span>
+                      <span className="font-semibold text-ink-900">{item.sku}</span>
                       <span className="text-ink-700 font-medium">{item.name}</span>
                     </div>
                     <div className="text-[11px] text-ink-500 mt-0.5">

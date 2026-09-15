@@ -188,16 +188,16 @@ export function FleetTable({ vehicles, onOpenAddModal }: FleetTableProps) {
             {sorted.map((v) => (
               <tr key={v.id} className="hover:bg-surface-muted/50 transition-colors">
                 <td className="py-3 px-4">
-                  <div className="font-mono font-bold text-ink-900">{v.id}</div>
-                  <div className="font-mono text-[10px] text-ink-400">{v.vin}</div>
+                  <div className="font-bold text-ink-900">{v.id}</div>
+                  <div className="text-[10px] text-ink-400">{v.vin}</div>
                 </td>
                 <td className="py-3 px-4">
                   <div className="font-semibold text-ink-900">{v.name}</div>
-                  <div className="text-[11px] text-ink-500 font-mono">Plate: {v.licensePlate}</div>
+                  <div className="text-[11px] text-ink-500">Plate: {v.licensePlate}</div>
                 </td>
                 <td className="py-3 px-4 text-ink-700 font-medium">{v.type}</td>
                 <td className="py-3 px-4">
-                  <span className="font-mono font-semibold px-2 py-0.5 rounded bg-surface-muted text-ink-700 border border-surface-border">
+                  <span className="font-semibold px-2 py-0.5 rounded bg-surface-muted text-ink-700 border border-surface-border">
                     {v.assignedHub}
                   </span>
                 </td>
@@ -211,7 +211,7 @@ export function FleetTable({ vehicles, onOpenAddModal }: FleetTableProps) {
                     <span className="text-ink-400 italic">Unassigned</span>
                   )}
                 </td>
-                <td className="py-3 px-4 text-right font-mono text-ink-900 font-semibold">
+                <td className="py-3 px-4 text-right text-ink-900 font-semibold">
                   {v.odometerMiles.toLocaleString()} mi
                 </td>
                 <td className="py-3 px-4 text-right">

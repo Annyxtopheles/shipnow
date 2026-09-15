@@ -325,7 +325,7 @@ export function WarehouseInventoryTable({
                         )}
                       </button>
                     </td>
-                    <td className="py-3 px-4 font-mono font-semibold text-ink-900">
+                    <td className="py-3 px-4 font-semibold text-ink-900">
                       {item.sku}
                     </td>
                     <td className="py-3 px-4">
@@ -333,11 +333,11 @@ export function WarehouseInventoryTable({
                       <div className="text-[11px] text-ink-500">{item.company}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded font-mono font-medium text-[11px] bg-surface-muted text-ink-700 border border-surface-border">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded font-medium text-[11px] bg-surface-muted text-ink-700 border border-surface-border">
                         {item.warehouseCode}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-ink-600 font-mono text-[11px]">
+                    <td className="py-3 px-4 text-ink-600 font-medium text-[11px]">
                       {item.zone}
                     </td>
                     <td className="py-3 px-4 text-right font-bold text-ink-900">
